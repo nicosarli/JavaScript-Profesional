@@ -36,3 +36,15 @@ main {
 .movie {
     width: 100%;
 }
+
+div {
+    margin: auto auto;
+}
+
+div h2 {
+    text-align: center;
+}
+
+div li {
+    padding: 10px;
+}
