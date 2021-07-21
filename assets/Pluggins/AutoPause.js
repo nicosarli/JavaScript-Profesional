@@ -11,6 +11,8 @@ class AutoPause {
     });
 
     observer.observe(this.player.media);
+
+    document.addEventListener("visibilitychange", this.handleVisibilityChange);
   }
 
   // Si uso las Arrow Functions no necesito bindear en el constructor el this.handleIntersection.
@@ -31,6 +33,16 @@ class AutoPause {
     // } else {
     //   this.player.pause();
     // }
+  };
+
+  handleVisibilityChange = () => {
+    const isVisible = document.visibilityState === "visible";
+
+    if (isVisible) {
+      this.player.play();
+    } else {
+      this.player.pause();
+    }
   };
 }
 
