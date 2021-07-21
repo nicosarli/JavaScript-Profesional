@@ -1,7 +1,7 @@
 class AutoPause {
   constructor() {
     this.threshold = 0.3;
-    this.handleIntersection = this.handleIntersection.bind(this);
+    // this.handleIntersection = this.handleIntersection.bind(this);
   }
 
   run(player) {
@@ -13,7 +13,8 @@ class AutoPause {
     observer.observe(this.player.media);
   }
 
-  handleIntersection(entries) {
+  // Si uso las Arrow Functions no necesito bindear en el constructor el this.handleIntersection.
+  handleIntersection = (entries) => {
     const entry = entries[0];
 
     // const isVisible = entry.intersectionRatio >= this.threshold; --> a pata
@@ -30,7 +31,7 @@ class AutoPause {
     // } else {
     //   this.player.pause();
     // }
-  }
+  };
 }
 
 export default AutoPause;
