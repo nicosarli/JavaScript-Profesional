@@ -38,3 +38,34 @@ comodin = { type: "Wildcard" }
 
 // Object
 let someObject: Object = { type: "Wildcard" }
+
+// Funciones que devuelven resultados
+function add(a: number, b: number): number {
+    return a + b;
+}
+
+const sum = add(1, 2);
+
+// Funciones que devuelven otras funciones
+function createAdder (a: number): (number) => number {
+    return function (b: number) {
+        return b + a;
+    }
+}
+
+const addFour = createAdder(4);
+const forPlus6 = addFour(6);
+
+function fullName1 (firstName: string, lastName?: string): string {
+    return `${firstName} ${lastName}`
+}
+
+const nicolas1 = fullName1('Nicolas');
+console.log(nicolas1);
+
+function fullName2 (firstName: string, lastName: string = 'Sarli'): string {
+    return `${firstName} ${lastName}`
+}
+
+const nicolas2 = fullName2('Nicolas');
+console.log(nicolas2);
