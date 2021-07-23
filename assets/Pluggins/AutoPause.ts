@@ -1,4 +1,9 @@
+import MediaPlayer from '../MediaPlayer';
+
 class AutoPause {
+  private threshold: number;
+  player: MediaPlayer;
+
   constructor() {
     this.threshold = 0.3;
     // this.handleIntersection = this.handleIntersection.bind(this);
@@ -6,6 +11,7 @@ class AutoPause {
 
   run(player) {
     this.player = player;
+
     const observer = new IntersectionObserver(this.handleIntersection, {
       threshold: this.threshold,
     });
@@ -16,9 +22,8 @@ class AutoPause {
   }
 
   // Si uso las Arrow Functions no necesito bindear en el constructor el this.handleIntersection.
-  handleIntersection = (entries) => {
+  private handleIntersection = (entries: IntersectionObserverEntry[]) => {
     const entry = entries[0];
-
     // const isVisible = entry.intersectionRatio >= this.threshold; --> a pata
 
     if (entry.isIntersecting) {
@@ -35,7 +40,7 @@ class AutoPause {
     // }
   };
 
-  handleVisibilityChange = () => {
+  private handleVisibilityChange = () => {
     const isVisible = document.visibilityState === "visible";
 
     if (isVisible) {

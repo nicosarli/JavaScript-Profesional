@@ -125,52 +125,55 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function MediaPlayer(config) {
-  this.media = config.el;
-  this.plugins = config.plugins || [];
+class MediaPlayer {
+  constructor(config) {
+    this.media = config.el;
+    this.plugins = config.plugins || [];
 
-  this._initPlugins();
-}
+    this._initPlugins();
+  }
 
-MediaPlayer.prototype._initPlugins = function () {
-  const player = {
-    play: () => this.play(),
-    pause: () => this.pause(),
-    media: this.media,
+  _initPlugins() {
+    const player = {
+      play: () => this.play(),
+      pause: () => this.pause(),
+      media: this.media,
 
-    get muted() {
-      return this.media.muted;
-    },
+      get muted() {
+        return this.media.muted;
+      },
 
-    set muted(value) {
-      this.media.muted = value;
-    }
+      set muted(value) {
+        this.media.muted = value;
+      }
 
-  };
-  this.plugins.forEach(plugin => {
-    plugin.run(player);
-  });
-};
+    };
+    this.plugins.forEach(plugin => {
+      plugin.run(player);
+    });
+  }
 
-MediaPlayer.prototype.play = function () {
-  this.media.play();
-};
+  play() {
+    this.media.play();
+  }
 
-MediaPlayer.prototype.pause = function () {
-  this.media.pause();
-};
+  pause() {
+    this.media.pause();
+  }
 
-MediaPlayer.prototype.togglePlay = function () {
-  this.media.paused ? this.media.play() : this.media.pause();
-};
+  togglePlay() {
+    this.media.paused ? this.media.play() : this.media.pause();
+  }
 
-MediaPlayer.prototype.mute = function () {
-  this.media.muted = true;
-};
+  mute() {
+    this.media.muted = true;
+  }
 
-MediaPlayer.prototype.unmute = function () {
-  this.media.muted = false;
-}; // MediaPlayer.prototype.toggleMute = function () {
+  unmute() {
+    this.media.muted = false;
+  }
+
+} // MediaPlayer.prototype.toggleMute = function () {
 //   this.media.muted = !this.media.muted;
 // };
 
@@ -197,61 +200,62 @@ AutoPlay.prototype.run = function (player) {
 
 var _default = AutoPlay;
 exports.default = _default;
-},{}],"assets/Pluggins/AutoPause.js":[function(require,module,exports) {
+},{}],"assets/Pluggins/AutoPause.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var AutoPause =
+/** @class */
+function () {
+  function AutoPause() {
+    var _this = this; // Si uso las Arrow Functions no necesito bindear en el constructor el this.handleIntersection.
 
-class AutoPause {
-  constructor() {
-    _defineProperty(this, "handleIntersection", entries => {
-      const entry = entries[0]; // const isVisible = entry.intersectionRatio >= this.threshold; --> a pata
+
+    this.handleIntersection = function (entries) {
+      var entry = entries[0]; // const isVisible = entry.intersectionRatio >= this.threshold; --> a pata
 
       if (entry.isIntersecting) {
         // --> con un elemento del entry
-        this.player.play();
+        _this.player.play();
       } else {
-        this.player.pause();
+        _this.player.pause();
       } // if (isVisible) {
       //   this.player.play();
       // } else {
       //   this.player.pause();
       // }
 
-    });
+    };
 
-    _defineProperty(this, "handleVisibilityChange", () => {
-      const isVisible = document.visibilityState === "visible";
+    this.handleVisibilityChange = function () {
+      var isVisible = document.visibilityState === "visible";
 
       if (isVisible) {
-        this.player.play();
+        _this.player.play();
       } else {
-        this.player.pause();
+        _this.player.pause();
       }
-    });
+    };
 
     this.threshold = 0.3; // this.handleIntersection = this.handleIntersection.bind(this);
   }
 
-  run(player) {
+  AutoPause.prototype.run = function (player) {
     this.player = player;
-    const observer = new IntersectionObserver(this.handleIntersection, {
+    var observer = new IntersectionObserver(this.handleIntersection, {
       threshold: this.threshold
     });
     observer.observe(this.player.media);
     document.addEventListener("visibilitychange", this.handleVisibilityChange);
-  } // Si uso las Arrow Functions no necesito bindear en el constructor el this.handleIntersection.
+  };
 
+  return AutoPause;
+}();
 
-}
-
-var _default = AutoPause;
-exports.default = _default;
+exports.default = AutoPause;
 },{}],"assets/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -259,7 +263,7 @@ var _MediaPlayer = _interopRequireDefault(require("./MediaPlayer.js"));
 
 var _AutoPlay = _interopRequireDefault(require("./Pluggins/AutoPlay.js"));
 
-var _AutoPause = _interopRequireDefault(require("./Pluggins/AutoPause.js"));
+var _AutoPause = _interopRequireDefault(require("./Pluggins/AutoPause.ts"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -288,7 +292,7 @@ if ("serviceWorker" in navigator) {
     console.log(error);
   });
 }
-},{"./MediaPlayer.js":"assets/MediaPlayer.js","./Pluggins/AutoPlay.js":"assets/Pluggins/AutoPlay.js","./Pluggins/AutoPause.js":"assets/Pluggins/AutoPause.js","D:\\Cursos Platzi\\JavaScript-Profesional\\sw.js":[["sw.js","sw.js"],"sw.js.map","sw.js"]}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./MediaPlayer.js":"assets/MediaPlayer.js","./Pluggins/AutoPlay.js":"assets/Pluggins/AutoPlay.js","./Pluggins/AutoPause.ts":"assets/Pluggins/AutoPause.ts","D:\\Cursos Platzi\\JavaScript-Profesional\\sw.js":[["sw.js","sw.js"],"sw.js.map","sw.js"]}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
