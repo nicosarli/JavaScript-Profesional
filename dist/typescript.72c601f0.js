@@ -189,7 +189,33 @@ function fullName2(firstName, lastName) {
 }
 
 var nicolas2 = fullName2('Nicolas');
-console.log(nicolas2);
+console.log(nicolas2); // Interfaces
+
+var ColorRect;
+
+(function (ColorRect) {
+  ColorRect["Rojo"] = "Rojo";
+  ColorRect["Verde"] = "Verde";
+})(ColorRect || (ColorRect = {}));
+
+var rect = {
+  ancho: 4,
+  alto: 6,
+  color: ColorRect.Rojo
+};
+
+function area(r) {
+  return r.alto * r.ancho;
+}
+
+var areaRect = area(rect);
+console.log(areaRect);
+
+rect.toString = function () {
+  return this.color ? "Un rectangulo " + this.color : "Un rectangulo";
+};
+
+console.log(rect.toString());
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

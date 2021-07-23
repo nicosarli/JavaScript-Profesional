@@ -69,3 +69,35 @@ function fullName2 (firstName: string, lastName: string = 'Sarli'): string {
 
 const nicolas2 = fullName2('Nicolas');
 console.log(nicolas2);
+
+// Interfaces
+
+enum ColorRect {
+    Rojo = "Rojo",
+    Verde = "Verde",
+}
+
+interface Rectangulo {
+    ancho: number,
+    alto: number,
+    color?: ColorRect
+}
+
+let rect: Rectangulo = {
+    ancho: 4,
+    alto: 6,
+    color: ColorRect.Rojo,
+};
+
+function area(r: Rectangulo) {
+    return r.alto * r.ancho;
+}
+
+const areaRect = area(rect);
+console.log(areaRect);
+
+rect.toString = function() {
+    return this.color? `Un rectangulo ${this.color}` : `Un rectangulo`;
+}
+
+console.log(rect.toString());
